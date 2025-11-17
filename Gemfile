@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-#bootstrapの導入
+# bootstrapの導入
 # Gemfile
 gem "dartsass-rails"
 gem "bootstrap", "~> 5.3.3"
