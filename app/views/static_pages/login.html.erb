@@ -1,0 +1,32 @@
+<!-- app/views/static_pages/login.html.erb -->
+
+<header>
+  <h1 class="site-title">〈 SmileTalk 〉</h1>
+</header>
+
+<div class="login-wrapper">
+  <div class="card login-box">
+    <div class="form-group">
+      <label>● ニックネーム</label>
+      <input type="text" class="input-field">
+    </div>
+
+    <div class="form-group">
+      <label>● パスワード</label>
+      <input type="password" class="input-field">
+    </div>
+
+    <div class="btn-area">
+      <button class="btn-main">ログイン</button>
+    </div>
+  </div>
+
+  <div class="links">
+    <%= link_to "新規登録はこちら", login_new_path, class: "link-main" %>
+    <%= link_to "パスワードを忘れた場合はこちら", login_pass_path, class: "link-main" %>
+  </div>
+</div>
+
+<footer>
+  @大学
+</footer>

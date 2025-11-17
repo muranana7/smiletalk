@@ -1,0 +1,30 @@
+<!-- app/views/static_pages/login_pass.html.erb -->
+
+<header>
+  <h1 class="site-title">パスワード再登録</h1>
+</header>
+
+<div class="login-wrapper">
+  <div class="card">
+    <div class="form-group">
+      <label>● ニックネーム</label>
+      <input type="text" class="input-field">
+    </div>
+
+    <div class="form-group">
+      <label>● メールアドレス</label>
+      <input type="email" class="input-field">
+    </div>
+
+    <div class="form-group">
+      <label>● 新しいパスワード</label>
+      <input type="password" class="input-field">
+    </div>
+
+    <button class="btn-main">再登録</button>
+  </div>
+
+  <div class="links">
+    <%= link_to "戻る", root_path, class: "link-main" %>
+  </div>
+</div>
