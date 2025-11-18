@@ -1,0 +1,102 @@
+// Sassy
+@import "bootstrap";
+
+
+
+:root {
+    --main-color: #b79fcb;
+    --main-color-dark: #a487c0;
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: #faf7fc;
+}
+
+/* ヘッダー */
+header {
+    background-color: var(--main-color);
+    padding: 15px 0;
+    text-align: center;
+}
+
+header .site-title {
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    color: #fff;
+    margin: 0;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* フッター */
+footer {
+    margin-top: 40px;
+    background-color: #f2edf7;
+    padding: 10px 0;
+    text-align: center;
+    color: #7a6a8c;
+    font-size: 0.9rem;
+}
+
+/* カード枠 */
+.card {
+    border-radius: 12px;
+    border: 1px solid #e8e2f0;
+    box-shadow: 0 3px 6px rgba(183, 159, 203, 0.15);
+    padding: 20px;
+    background: #fff;
+}
+
+/* ボタン */
+.btn-main {
+    background-color: var(--main-color);
+    border-color: var(--main-color);
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-main:hover {
+    background-color: var(--main-color-dark);
+}
+
+/* テキストリンク */
+.link-main {
+      color: var(--main-color);
+    font-weight: bold;
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+    .link-main:hover {
+    text-decoration: underline;
+}
+
+    /* レイアウト */
+.login-wrapper {
+    width: 350px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.form-group {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.btn-area {
+    margin-top: 20px;
+}
