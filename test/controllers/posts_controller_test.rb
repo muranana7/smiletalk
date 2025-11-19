@@ -1,6 +1,10 @@
 require "test_helper"
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @post = posts(:one) 
+  end
+
   test "should get index" do
     get posts_url
     assert_response :success
@@ -17,7 +21,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get create" do
-    get posts_url
+    post posts_url
     assert_response :success
   end
 
@@ -27,12 +31,12 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get update" do
-    get posts_url(@post)
+    patch post_url(@post)
     assert_response :success
   end
 
   test "should get destroy" do
-    get posts_url(@post)
+    delete post_url(@post)
     assert_response :success
   end
 end
