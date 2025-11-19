@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   post "static_pages/update", to: "static_pages#update_post", as: :static_pages_update_post
   get "static_pages/update_complete", to: "static_pages#update_complete", as: :static_pages_update_complete
   get "static_pages/thread_index", to: "static_pages#thread_index", as: :static_pages_index
-
   # ヘルスチェック
   get "up" => "rails/health#show", as: :rails_health_check
 end
