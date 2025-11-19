@@ -7,4 +7,10 @@ class StaticPagesController < ApplicationController
 
   def login_pass
   end
+
+  def thread_index
+  end
+
+  def thread_view
+  end
 end
