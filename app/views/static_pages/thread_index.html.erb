@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ホーム画面 - 全画面表示</title>
+<style>
+:root {
+  --main-color: #b79fcb;
+  --main-color-dark: #a487c0;
+  --secondary-bg: #faf7fc;
+  --border-color: #d0c8da;
+  --text-color: #333;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: var(--secondary-bg);
+  color: var(--text-color);
+}
+
+/* 全画面コンテナ */
+.container {
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ヘッダー */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--main-color);
+  color: #fff;
+  padding: 15px 20px;
+}
+.header-left {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.new-create-button {
+  background-color: #fff;
+  color: var(--main-color);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.new-create-button:hover {
+  background-color: #f0f0f0;
+}
+
+/* メインコンテンツ */
+.main-content {
+  display: flex;
+  gap: 20px;
+}
+
+/* リスト・サイドバー共通 */
+.main-list-area, .sidebar-area {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 3px 6px rgba(183, 159, 203, 0.1);
+  padding: 20px;
+}
+
+/* 左右比率 */
+.main-list-area { flex: 2; }
+.sidebar-area { flex: 1; }
+
+.list-header {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.item-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  background: #faf7fc;
+}
+.item-list li:last-child { margin-bottom: 0; }
+
+.item-name { font-size: 1rem; flex-grow: 1; }
+.item-date { font-size: 0.9rem; color: #777; margin-left: 10px; }
+
+.delete-btn {
+  background: var(--main-color);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.delete-btn:hover { background: var(--main-color-dark); }
+
+.sidebar-area h3 {
+  text-align: center;
+  color: var(--main-color);
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+
+.item-list li.has-delete { justify-content: flex-start; }
+
+/* フッター */
+footer {
+  margin-top: 30px;
+  padding: 15px 20px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+.logout-link, .board-link {
+  color: var(--main-color);
+  font-weight: bold;
+  text-decoration: none;
+  margin-right: 15px;
+}
+.logout-link:hover, .board-link:hover {
+  color: var(--main-color-dark);
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+  .main-content { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <div class="header-left">&lt; ホームページ &gt;</div>
+    <div class="header-right">
+      <span class="user-id">ユーザーID</span>
+      <a href="/static_pages/lここに新規作成ページのルートの名前"></a>
+      <button class="new-create-button">＋新規作成</button>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="main-list-area">
+      <div class="list-header">
+        <span class="list-title">タイトル名</span>
+        <span class="list-date">日時</span>
+      </div>
+      <ul class="item-list">
+        <li>
+            <a href="/static_pages/thread_view" class="item-link">
+                <span class="item-name">雪景色のおすすめスポット教えて！</span>
+                <span class="item-date">2025/11/14</span>
+            </a>
+        </li>
+      </ul>
+    </section>
+
+    <aside class="sidebar-area">
+      <h3>Myページ</h3>
+      <ul class="item-list">
+        <li class="has-delete">
+          <span class="item-name">マイアイテム1</span>
+          <span class="item-date">2025/11/12</span>
+          <button class="delete-btn">削除</button>
+        </li>
+        <li class="has-delete">
+          <span class="item-name">マイアイテム2</span>
+          <span class="item-date">2025/11/10</span>
+          <button class="delete-btn">削除</button>
+        </li>
+      </ul>
+    </aside>
+  </main>
+
+  <footer>
+    <a href="/static_pages/login" class="logout-link">ログアウト</a>
+    <span>©</span>
+    <a href="#" class="board-link">掲示板</a>
+  </footer>
+</div>
+</body>
+</html>

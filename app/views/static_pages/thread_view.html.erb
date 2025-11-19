@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スレッド閲覧 — 掲示板アプリ</title>
+  <link rel="stylesheet" href="thread_view.css">
+  <style>
+ 
+    :root {
+ 
+      --main-color: #b79fcb;
+ 
+      --main-color-dark: #a487c0;
+ 
+    }
+ 
+ 
+ 
+    body {
+ 
+      margin: 0;
+ 
+      font-family: sans-serif;
+ 
+      background: #faf7fc;
+ 
+    }
+ 
+ 
+ 
+    /* ヘッダー */
+ 
+    header {
+ 
+      background-color: #b79fcb;
+ 
+      padding: 15px 0;
+ 
+      text-align: center;
+ 
+    }
+ 
+ 
+ 
+    header .site-title {
+ 
+      font-family: 'Pacifico', cursive;
+ 
+      font-size: 2rem;
+ 
+      color: #fff;
+ 
+      margin: 0;
+ 
+      text-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+ 
+    }
+ 
+ 
+ 
+    /* フッター */
+ 
+    footer {
+ 
+      margin-top: 40px;
+ 
+      background-color: #f2edf7;
+ 
+      padding: 10px 0;
+ 
+      text-align: center;
+ 
+      color: #7a6a8c;
+ 
+      font-size: 0.9rem;
+ 
+    }
+ 
+ 
+ 
+    /* カード枠 */
+ 
+    .card {
+ 
+      border-radius: 12px;
+ 
+      border: 1px solid #e8e2f0;
+ 
+      box-shadow: 0 3px 6px rgba(183, 159, 203, 0.15);
+ 
+      padding: 20px;
+ 
+      background: #fff;
+ 
+    }
+ 
+ 
+ 
+    /* ボタン */
+ 
+    .btn-main {
+ 
+      background-color: var(--main-color);
+ 
+      border-color: var(--main-color);
+ 
+      color: #fff;
+ 
+      padding: 10px;
+ 
+      width: 100%;
+ 
+      border-radius: 6px;
+ 
+      cursor: pointer;
+ 
+      border: none;
+ 
+    }
+ 
+    .btn-main:hover {
+ 
+      background-color: var(--main-color-dark);
+ 
+    }
+ 
+ 
+ 
+    /* テキストリンク（リンクなし） */
+ 
+    .link-main {
+ 
+      color: var(--main-color);
+ 
+      font-weight: bold;
+ 
+      text-align: center;
+ 
+      display: block;
+ 
+      margin-top: 10px;
+ 
+    }
+ 
+ 
+ 
+    /* レイアウト */
+ 
+    .login-wrapper {
+ 
+      width: 350px;
+ 
+      margin: 40px auto;
+ 
+      text-align: center;
+ 
+    }
+ 
+ 
+ 
+    .form-group {
+ 
+      text-align: left;
+ 
+      margin-bottom: 15px;
+ 
+    }
+ 
+ 
+ 
+    .input-field {
+ 
+      width: 100%;
+ 
+      padding: 8px;
+ 
+      border: 1px solid #ccc;
+ 
+      border-radius: 6px;
+ 
+    }
+ 
+ 
+ 
+    .btn-area {
+ 
+      margin-top: 20px;
+ 
+    }
+ 
+ 
+ 
+  </style>
+ 
+ 
+</head>
+<body>
+ 
+  <!-- ヘッダー -->
+  <header class="site-header">
+    <div class="container">
+      <a class="logo" href="/">掲示板アプリ</a>
+      <nav class="main-nav" aria-label="主要ナビゲーション">
+        <a href="/static_pages/login"></a>  
+        <a href="/static_pages/thread_index">スレッド一覧</a>
+        <button class="logout">ログアウト</button>
+      </nav>
+    </div>
+  </header>
+ 
+  <!-- メイン -->
+  <main class="container">
+   
+    <!-- スレッドタイトル・情報 -->
+    <section class="thread-header">
+      <h1 id="thread-title">雪景色のおすすめスポット教えて！</h1>
+      <div class="thread-meta">
+        <span class="creator">作成者: 匿名A</span>
+        <time datetime="2025-11-10T15:23">2025-11-10 15:23</time>
+      </div>
+    </section>
+ 
+    <!-- 投稿一覧 -->
+    <section class="posts">
+      <!-- 投稿カード -->
+      <article class="post">
+        <header class="post-header">
+          <span class="post-author">名無しさん (ID: 9f3a)</span>
+          <time class="post-time" datetime="2025-11-12T09:32">11/12 09:32</time>
+        </header>
+        <div class="post-body">
+          <p>軽井沢は雪景色も綺麗で食べ歩きも楽しめます。旧軽井沢の通りがおすすめです。</p>
+          <figure class="post-image">
+            <img src="sample1.jpg" alt="軽井沢の雪景色">
+            <figcaption>軽井沢の街並み（例）</figcaption>
+          </figure>
+        </div>
+        <footer class="post-actions">
+          <a href="/static_pages/post_edit" class="btn edit">編集/削除</a>
+        </footer>
+      </article>
+
+
+      <!-- 投稿が無い場合のメッセージ -->
+      <!-- <p class="empty">まだ投稿がありません。最初の投稿をしましょう！</p> -->
+    </section>
+ 
+
+ 
+    <!-- 返信フォーム -->
+    <aside class="reply-area">
+      <h2>返信する</h2>
+      <form action="/threads/12/posts" method="post" enctype="multipart/form-data">
+        <input type="text" name="nickname" placeholder="ニックネーム（任意）" maxlength="30">
+        <textarea name="body" rows="5" placeholder="返信内容を入力" required></textarea>
+        <input type="file" name="image" accept="image/*">
+        <div class="form-actions">
+          <button type="submit" class="btn primary">送信</button>
+          <button type="button" class="btn secondary">プレビュー</button>
+        </div>
+      </form>
+    </aside>
+ 
+  </main>
+ 
+  <!-- フッター -->
+  <footer class="site-footer">
+    <div class="container">© 掲示板アプリ</div>
+  </footer>
+ 
+  <script>
+    // 投稿削除の確認
+    document.addEventListener('click', function(e) {
+      const btn = e.target.closest('.btn.delete');
+      if (!btn) return;
+      if (!confirm('本当にこの投稿を削除しますか？')) e.preventDefault();
+    });
+  </script>
+ 
+</body>
+</html>
+ 
+<style>
+/* 変数分は直接値に展開しています */
+.post-actions {
+display: flex;
+gap: 8px;
+margin-top: 10px;
+}
+.btn {
+padding: 8px 12px;
+border-radius: 8px;
+border: none;
+cursor: pointer;
+background: transparent;
+}
+.btn.primary {
+background: #2563eb;
+color: white;
+}
+.btn.secondary {
+background: transparent;
+border: 1px solid rgba(0, 0, 0, 0.08);
+}
+.btn.reply { background: transparent; }
+.pagination {
+display: flex;
+gap: 10px;
+align-items: center;
+justify-content: center;
+margin: 20px 0;
+}
+.pagination button[disabled] {
+opacity: 0.5;
+cursor: default;
+}
+.reply-area {
+margin-top: 20px;
+background: #fff;
+border: 1px solid rgba(0, 0, 0, 0.08);
+padding: 16px;
+border-radius: 10px;
+}
+.reply-area form {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+.reply-area input[type="text"],
+.reply-area textarea,
+.reply-area input[type="file"] {
+padding: 10px;
+border-radius: 8px;
+border: 1px solid rgba(0, 0, 0, 0.08);
+font-size: 1rem;
+}
+.form-actions {
+display: flex;
+gap: 8px;
+justify-content: flex-end;
+}
+.site-footer {
+margin-top: 40px;
+padding: 18px 0;
+text-align: center;
+color: #6b7280;
+}
+@media (min-width: 900px) {
+.container { padding: 32px; }
+.post { display: block; }
+.reply-area { position: sticky; bottom: 20px; }
+}
+</style>
