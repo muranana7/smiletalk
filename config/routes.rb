@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+#  get "posts/index"
+#  get "posts/show"
+#  get "posts/new"
+#  get "posts/create"
+#  get "posts/edit"
+#  get "posts/update"
+#  get "posts/destroy"
+  
+  resources :posts
   # ルート（トップページ）
   root "static_pages#login"
 
@@ -11,6 +20,7 @@ Rails.application.routes.draw do
   get "static_pages/delete_complete", to: "static_pages#delete_complete", as: :static_pages_delete_complete
   post "static_pages/update", to: "static_pages#update_post", as: :static_pages_update_post
   get "static_pages/update_complete", to: "static_pages#update_complete", as: :static_pages_update_complete
+  
 
   # ヘルスチェック
   get "up" => "rails/health#show", as: :rails_health_check
