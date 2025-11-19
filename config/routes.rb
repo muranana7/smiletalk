@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   #  get "posts/destroy"
 
   resources :posts
+
+  get "dashboard", to: "users#dashboard"
+
   # ルート（トップページ）
   root "static_pages#login"
 
