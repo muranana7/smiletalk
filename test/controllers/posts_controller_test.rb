@@ -7,12 +7,12 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get show" do
-    get post_ur(@post)
+    get post_url(@post)
     assert_response :success
   end
 
   test "should get new" do
-    get new_posts_url
+    get new_post_url
     assert_response :success
   end
 
@@ -22,7 +22,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    get edit_post_url
+    get edit_post_url(@post)
     assert_response :success
   end
 
