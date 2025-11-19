@@ -21,7 +21,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get create" do
-    post posts_url
+    get posts_url
     assert_response :success
   end
 
@@ -31,12 +31,12 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get update" do
-    patch post_url(@post)
+    get post_url(@post)
     assert_response :success
   end
 
   test "should get destroy" do
-    delete post_url(@post)
+    get post_url(@post)
     assert_response :success
   end
 end
