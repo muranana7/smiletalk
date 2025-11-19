@@ -8,20 +8,13 @@ class StaticPagesController < ApplicationController
   def login_pass
   end
 
-<<<<<<< HEAD
-  def thread_index
+  def thread_view
   end
 
-  def thread_view
-=======
   def post_edit
   end
 
   def delete_post
-    # 実際の削除処理（省略可）
-    # Post.find(params[:post_id]).destroy
-
-    # 削除完了ページにリダイレクト
     redirect_to static_pages_delete_complete_path
   end
 
@@ -29,12 +22,9 @@ class StaticPagesController < ApplicationController
   end
 
   def update_post
-  # 実際はモデル更新
-  # Post.find(params[:post_id]).update(content: params[:content])
-  redirect_to static_pages_update_complete_path
+    redirect_to static_pages_update_complete_path
   end
 
   def update_complete
->>>>>>> main
   end
 end
