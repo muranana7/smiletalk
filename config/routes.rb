@@ -1,7 +1,19 @@
 Rails.application.routes.draw do
+  #  get "posts/index"
+  #  get "posts/show"
+  #  get "posts/new"
+  #  get "posts/create"
+  #  get "posts/edit"
+  #  get "posts/update"
+  #  get "posts/destroy"
+ 
+  resources :posts
+ 
+  get "dashboard", to: "users#dashboard"
+ 
   # ルート（トップページ）
   root "static_pages#login"
-
+ 
   # 各ページへのルート（名前付きヘルパー付き）
   get "static_pages/login",      to: "static_pages#login",      as: :static_pages_login
   get "static_pages/login_new",  to: "static_pages#login_new",  as: :static_pages_login_new
@@ -13,7 +25,7 @@ Rails.application.routes.draw do
   post "static_pages/update", to: "static_pages#update_post", as: :static_pages_update_post
   get "static_pages/update_complete", to: "static_pages#update_complete", as: :static_pages_update_complete
   get "static_pages/thread_index", to: "static_pages#thread_index", as: :static_pages_index
-
+ 
   # ヘルスチェック
   get "up" => "rails/health#show", as: :rails_health_check
 end
