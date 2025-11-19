@@ -8,7 +8,7 @@ class StaticPagesController < ApplicationController
   def login_pass
   end
 
-  def post_edit   
+  def post_edit
   end
 
   def delete_post
@@ -29,5 +29,5 @@ class StaticPagesController < ApplicationController
   end
 
   def update_complete
-  end 
+  end
 end
