@@ -11,7 +11,6 @@ Rails.application.routes.draw do
   get "static_pages/delete_complete", to: "static_pages#delete_complete", as: :static_pages_delete_complete
   post "static_pages/update", to: "static_pages#update_post", as: :static_pages_update_post
   get "static_pages/update_complete", to: "static_pages#update_complete", as: :static_pages_update_complete
-
   get 'static_pages/thread_index', to: 'static_pages#thread_index', as: :static_pages_index
 
   # ヘルスチェック
