@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get "static_pages/update_complete", to: "static_pages#update_complete", as: :static_pages_update_complete
   get "static_pages/thread_index", to: "static_pages#thread_index", as: :static_pages_index
   get "static_pages/new_post", to: "static_pages#new_post", as: :static_pages_new_post
+  post "static_pages/create_post", to: "static_pages#create_post", as: :static_pages_create_post
   
 
 

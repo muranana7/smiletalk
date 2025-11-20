@@ -1,188 +1,43 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>新規投稿ページ</title>
-    <!-- Tailwind CSSを読み込み -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* フォント設定 */
-        body {
-            font-family: "Inter", sans-serif;
-            background-color: #f7f9fb;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新規投稿ページ</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: "Inter", sans-serif;
+      background-color: #f7f9fb;
+    }
+  </style>
 </head>
 <body class="min-h-screen p-4 sm:p-8 flex justify-center items-start">
 
-    <!-- 投稿フォームコンテナ -->
-    <div class="w-full max-w-2xl bg-white shadow-xl rounded-xl p-6 sm:p-10 border border-gray-100">
-        <h1 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">新規投稿作成</h1>
-        <p class="text-sm text-gray-500 mb-8">本文を入力して投稿してください。</p>
+  <div class="w-full max-w-2xl bg-white shadow-xl rounded-xl p-6 sm:p-10 border border-gray-100">
+    <h1 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">新規投稿作成</h1>
 
-        <!-- フォーム本体 -->
-        <form id="postForm" class="space-y-6">
-            <div>
-                <label for="contentInput" class="block text-sm font-medium text-gray-700 mb-2">本文</label>
-                <textarea id="contentInput" name="content" rows="8" required
-                          class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-base"
-                          placeholder="本文を自由に入力してください..."></textarea>
-            </div>
+    <% if flash[:notice] %>
+      <div class="mb-4 p-4 bg-green-100 text-green-700 rounded-lg border border-green-300">
+        <%= flash[:notice] %>
+      </div>
+    <% elsif flash[:alert] %>
+      <div class="mb-4 p-4 bg-red-100 text-red-700 rounded-lg border border-red-300">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
 
-            <!-- 投稿ボタン -->
-            <div class="pt-4">
-                <button type="submit" id="submitButton"
-                        class="w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out disabled:opacity-50"
-                        >
-                    投稿する
-                </button>
-            </div>
-        </form>
+    <%= form_with url: static_pages_create_post_path, method: :post, local: true, html: { class: "space-y-6" } do |f| %>
+      <div>
+        <%= f.label :content, "本文", class: "block text-sm font-medium text-gray-700 mb-2" %>
+        <%= f.text_area :content, rows: 8, required: true, class: "mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-base", placeholder: "本文を自由に入力してください..." %>
+      </div>
 
-        <!-- メッセージ表示エリア -->
-        <div id="messageArea" class="mt-8 hidden p-4 rounded-lg bg-green-100 text-green-700 border border-green-200" role="alert">
-            <!-- JavaScriptでメッセージが挿入されます -->
-        </div>
+      <div class="pt-4">
+        <%= f.submit "投稿する", class: "w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 ease-in-out disabled:opacity-50" %>
+      </div>
+    <% end %>
+  </div>
 
-        <!-- ローディングインジケータ -->
-        <div id="loadingIndicator" class="mt-8 hidden text-center">
-            <svg class="animate-spin h-6 w-6 text-indigo-500 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            <p class="mt-2 text-sm text-indigo-500">データを保存中です...</p>
-        </div>
-    </div>
-
-    <!-- Firebase SDKの読み込みとロジック -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // グローバル変数の設定 (Canvas環境から提供される)
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
-
-        // Firebase設定の安全な取得と検証ロジック (エラー回避のため必須)
-        let firebaseConfig = {};
-        try {
-            if (typeof __firebase_config !== 'undefined' && __firebase_config) {
-                firebaseConfig = JSON.parse(__firebase_config);
-            }
-        } catch (e) {
-            console.error("Firebase Config のパースに失敗しました:", e);
-        }
-
-        // 'projectId'がないエラーを回避するため、projectIdが欠けている場合はダミーを設定
-        if (!firebaseConfig.projectId) {
-            firebaseConfig.projectId = "dummy-project-id";
-            console.warn("Firebase ConfigにprojectIdがありませんでした。ダミーの'dummy-project-id'を使用します。");
-        }
-        
-        let db;
-        let auth;
-        let currentUserId = null;
-        
-        const form = document.getElementById('postForm');
-        const contentInput = document.getElementById('contentInput');
-        const submitButton = document.getElementById('submitButton');
-        const messageArea = document.getElementById('messageArea');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-
-        // Firebaseの初期化と認証
-        async function initializeFirebase() {
-            try {
-                const app = initializeApp(firebaseConfig);
-                db = getFirestore(app);
-                auth = getAuth(app);
-
-                // 認証ロジック
-                if (initialAuthToken) {
-                    const userCredential = await signInWithCustomToken(auth, initialAuthToken);
-                    currentUserId = userCredential.user.uid;
-                    console.log("カスタムトークンで認証に成功しました。UserID:", currentUserId);
-                } else {
-                    const userCredential = await signInAnonymously(auth);
-                    currentUserId = userCredential.user.uid;
-                    console.log("匿名認証に成功しました。UserID:", currentUserId);
-                }
-
-            } catch (error) {
-                console.error("Firebaseの初期化または認証エラー:", error);
-                // 認証エラーが発生した場合、フォームを無効化
-                submitButton.disabled = true;
-                showMessage(`エラー: アプリケーションの初期化中に問題が発生しました。コンソールを確認してください。（${error.message}）`, 'red');
-            }
-        }
-
-        // メッセージ表示関数
-        function showMessage(text, type = 'green') {
-            messageArea.textContent = text;
-            messageArea.className = `mt-8 p-4 rounded-lg border text-white ${type === 'green' ? 'bg-green-500 border-green-600' : 'bg-red-500 border-red-600'} block`;
-            messageArea.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // フォーム送信ハンドラ
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            if (!db || !currentUserId) {
-                showMessage("エラー: データベースまたはユーザー認証が完了していません。", 'red');
-                return;
-            }
-
-            // UIを更新（ローディング開始）
-            submitButton.disabled = true;
-            messageArea.classList.add('hidden');
-            loadingIndicator.classList.remove('hidden');
-
-            const content = contentInput.value.trim();
-            
-            // フォームのバリデーション
-            if (!content) {
-                showMessage("エラー: 本文を入力してください。", 'red');
-                submitButton.disabled = false;
-                loadingIndicator.classList.add('hidden');
-                return;
-            }
-
-            const newPost = {
-                content: content,
-                userId: currentUserId,
-                timestamp: Date.now()
-            };
-
-            // Firestoreの公開コレクションパス
-            // /artifacts/{appId}/public/data/posts
-            const collectionPath = `artifacts/${appId}/public/data/posts`;
-            const postsCollection = collection(db, collectionPath);
-
-            try {
-                // データをFirestoreに追加
-                const docRef = await addDoc(postsCollection, newPost);
-                
-                // 成功メッセージを表示
-                showMessage(`投稿が完了しました！ドキュメントID: ${docRef.id}（UserID: ${currentUserId}）`, 'green');
-
-                // フォームをリセット
-                form.reset();
-                contentInput.focus(); // 本文入力フィールドにフォーカスを移動
-
-            } catch (error) {
-                console.error("Firestoreへのデータ書き込みエラー:", error);
-                showMessage(`投稿に失敗しました: ${error.message}`, 'red');
-            } finally {
-                // UIを更新（ローディング終了）
-                submitButton.disabled = false;
-                loadingIndicator.classList.add('hidden');
-            }
-        });
-
-        // アプリケーション開始
-        window.onload = initializeFirebase;
-
-    </script>
 </body>
 </html>
