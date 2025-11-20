@@ -1,13 +1,9 @@
 # syntax=docker/dockerfile:1
 # check=error=true
 
-# This Dockerfile is designed for production, not development. Use with Kamal or build'n'run by hand:
-# docker build -t ex .
-# docker run -d -p 80:80 -e RAILS_MASTER_KEY=<value from config/master.key> --name ex ex
+# This Dockerfile is designed for production, not development.
+# For dev containers, see: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
 
-# For a containerized dev environment, see Dev Containers: https://guides.rubyonrails.org/getting_started_with_devcontainer.html
-
-# Make sure RUBY_VERSION matches the Ruby version in .ruby-version
 ARG RUBY_VERSION=3.4.1
 FROM docker.io/library/ruby:$RUBY_VERSION-slim AS base
 
@@ -45,11 +41,8 @@ COPY . .
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
+# Precompile assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-
-
-
 
 # Final stage for app image
 FROM base
@@ -64,9 +57,14 @@ RUN groupadd --system --gid 1000 rails && \
     chown -R rails:rails db log storage tmp
 USER 1000:1000
 
-# Entrypoint prepares the database.
+# Expose port Render expects
+EXPOSE 10000
+
+# Ensure production environment
+ENV RAILS_ENV=production
+
+# Entrypoint prepares the database (if needed)
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start server via Thruster by default, this can be overwritten at runtime
-EXPOSE 80
-CMD ["./bin/thrust", "./bin/rails", "server"]
+# Start Rails server on the correct port for Render
+CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "10000"]
