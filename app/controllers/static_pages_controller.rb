@@ -33,18 +33,19 @@ class StaticPagesController < ApplicationController
   end
 
   def create_post
+    title = params[:title]
     content = params[:content]
 
-    if content.blank?
-      flash[:alert] = "本文を入力してください"
+    if title.blank? || content.blank?
+      flash[:alert] = "タイトルと本文を入力してください"
       redirect_to static_pages_new_post_path
       return
     end
 
     File.open(Rails.root.join("tmp", "posts.txt"), "a") do |f|
-      f.puts("#{Time.now}: #{content}")
+      f.puts("#{Time.now}: #{title} - #{content}")
     end
-
+    
     render inline: "<script>alert('投稿が完了しました！'); window.location.href='/static_pages/thread_index';</script>"
   end
 end
