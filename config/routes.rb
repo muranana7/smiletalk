@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "dashboard", to: "users#dashboard"
+
   # ルート（トップページ）
   root "static_pages#login"
 
