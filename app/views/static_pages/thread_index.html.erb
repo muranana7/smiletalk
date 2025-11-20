@@ -156,8 +156,14 @@ footer {
     <div class="header-left">&lt; ホームページ &gt;</div>
     <div class="header-right">
       <span class="user-id">ユーザーID</span>
-      <a href="/static_pages/lここに新規作成ページのルートの名前"></a>
-      <button class="new-create-button">＋新規作成</button>
+      <button class="new-create-button" id="newPostButton">＋新規作成</button>
+      
+      <script>
+        document.getElementById("newPostButton").addEventListener("click", function() {
+          window.location.href = "/static_pages/new_post";
+        });
+      </script>
+
     </div>
   </header>
 
