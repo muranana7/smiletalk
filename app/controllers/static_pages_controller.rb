@@ -45,7 +45,7 @@ class StaticPagesController < ApplicationController
     File.open(Rails.root.join("tmp", "posts.txt"), "a") do |f|
       f.puts("#{Time.now}: #{title} - #{content}")
     end
-    
+
     render inline: "<script>alert('投稿が完了しました！'); window.location.href='/static_pages/thread_index';</script>"
   end
 end
