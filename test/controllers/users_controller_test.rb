@@ -1,6 +1,12 @@
 require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @user = users(:one)
+    # session[:user_id] を作るためにログインする
+    post static_pages_login_path, params: { email: @user.email, password: "password" }
+  end
+
   test "should create user" do
     post users_path, params: {
       user: {
@@ -13,13 +19,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal "新規登録が完了しました", flash[:notice]
   end
 
-  # パスワード更新のテスト例
   test "should update password" do
-    user = users(:one) # fixtures で定義されているユーザー
     patch update_password_path, params: {
       password: "newpassword",
       password_confirmation: "newpassword"
-    }, session: { user_id: user.id }
+    }
     assert_redirected_to root_path
     assert_equal "パスワードを更新しました", flash[:notice]
   end

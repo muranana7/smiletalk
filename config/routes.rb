@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   post "static_pages/create_post", to: "static_pages#create_post", as: :static_pages_create_post
 
   # UsersController のルート
-  resources :users, only: [:create]  # 新規作成のみ
+  resources :users, only: [ :create ]  # 新規作成のみ
   patch "users/update_password", to: "users#update_password", as: :update_password
 
   # ヘルスチェック
