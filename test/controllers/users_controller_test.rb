@@ -3,8 +3,8 @@ require "test_helper"
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
-    # session[:user_id] を作るためにログインする
-    post static_pages_login_path, params: { email: @user.email, password: "password" }
+    # session[:user_id] を作るためにログイン
+    post static_pages_login_path, params: { nickname: @user.nickname, password: "password" }
   end
 
   test "should create user" do
