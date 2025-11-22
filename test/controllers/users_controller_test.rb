@@ -1,4 +1,5 @@
 require "test_helper"
+require "securerandom"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -8,10 +9,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create user" do
+    unique_suffix = SecureRandom.hex(4)
     post users_path, params: {
       user: {
-        nickname: "テスト",
-        email: "test@example.com",
+        nickname: "テストユーザー_#{unique_suffix}",
+        email: "test_#{unique_suffix}@example.com",
         password: "password"
       }
     }
