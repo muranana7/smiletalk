@@ -1,14 +1,8 @@
 Rails.application.routes.draw do
-  # get "users/new"
-  # get "users/create"
-  get "dashboard", to: "users#dashboard"
-
   # ルート（トップページ）
   root "static_pages#login"
 
-  # 各ページへのルート（名前付きヘルパー付き）
-  # ログイン処理（POST）
-  # routes.rb
+  # StaticPagesController のルート
   get  "static_pages/login", to: "static_pages#login",      as: :static_pages_login
   post "static_pages/login", to: "static_pages#login_post", as: :login
 
@@ -25,10 +19,9 @@ Rails.application.routes.draw do
   get "static_pages/new_post", to: "static_pages#new_post", as: :static_pages_new_post
   post "static_pages/create_post", to: "static_pages#create_post", as: :static_pages_create_post
 
-  # users_controller.rb関連
-  resources :users, only: [ :create ]
+  # UsersController のルート
+  resources :users, only: [:create]  # 新規作成のみ
   patch "users/update_password", to: "users#update_password", as: :update_password
-
 
   # ヘルスチェック
   get "up" => "rails/health#show", as: :rails_health_check
