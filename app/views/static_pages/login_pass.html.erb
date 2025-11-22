@@ -1,27 +1,45 @@
-<!-- app/views/static_pages/login_pass.html.erb -->
-
 <header>
   <h1 class="site-title">パスワード再登録</h1>
 </header>
 
 <div class="login-wrapper">
   <div class="card">
-    <div class="form-group">
-      <label>● ニックネーム</label>
-      <input type="text" class="input-field">
-    </div>
 
-    <div class="form-group">
-      <label>● メールアドレス</label>
-      <input type="email" class="input-field">
-    </div>
+    <!-- フラッシュメッセージ -->
+    <% if flash[:notice] %>
+      <div class="alert alert-success"><%= flash[:notice] %></div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-danger"><%= flash[:alert] %></div>
+    <% end %>
 
-    <div class="form-group">
-      <label>● 新しいパスワード</label>
-      <input type="password" class="input-field">
-    </div>
+    <%= form_with url: update_password_path, method: :patch, local: true do |f| %>
 
-    <button class="btn-main">再登録</button>
+      <!-- ニックネーム表示（送信されない） -->
+      <div class="form-group">
+        <label>● ニックネーム</label>
+        <input type="text" value="<%= User.find(session[:user_id]).nickname %>" class="input-field" disabled>
+      </div>
+
+      <!-- メールアドレス表示（送信されない） -->
+      <div class="form-group">
+        <label>● メールアドレス</label>
+        <input type="email" value="<%= User.find(session[:user_id]).email %>" class="input-field" disabled>
+      </div>
+
+      <!-- 新しいパスワード入力 -->
+      <div class="form-group">
+        <%= f.label :password, "● 新しいパスワード" %>
+        <%= f.password_field :password, class: "input-field" %>
+      </div>
+
+      <!-- パスワード確認 -->
+      <div class="form-group">
+        <%= f.label :password_confirmation, "● パスワード確認" %>
+        <%= f.password_field :password_confirmation, class: "input-field" %>
+      </div>
+
+      <%= f.submit "再登録", class: "btn-main" %>
+    <% end %>
   </div>
 
   <div class="links">
