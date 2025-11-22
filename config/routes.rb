@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  #get "users/new"
-  #get "users/create"
+  # get "users/new"
+  # get "users/create"
   get "dashboard", to: "users#dashboard"
 
   # ルート（トップページ）
@@ -25,8 +25,8 @@ Rails.application.routes.draw do
   get "static_pages/new_post", to: "static_pages#new_post", as: :static_pages_new_post
   post "static_pages/create_post", to: "static_pages#create_post", as: :static_pages_create_post
 
-  #users_controller.rb関連
-  resources :users, only: [:create]
+  # users_controller.rb関連
+  resources :users, only: [ :create ]
   patch "users/update_password", to: "users#update_password", as: :update_password
 
 

@@ -4,14 +4,14 @@ class StaticPagesController < ApplicationController
 
   def login_post
     user = User.find_by(nickname: params[:nickname])
-    
+
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
       flash[:notice] = "ログインに成功しました"
       redirect_to static_pages_index_path
     else
       flash[:alert] = "ニックネームかパスワードが正しくありません"
-      #redirect_to static_pages_login_path
+      # redirect_to static_pages_login_path
       redirect_to root_path
 
     end
