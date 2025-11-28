@@ -2,11 +2,30 @@ class StaticPagesController < ApplicationController
   def login
   end
 
+  def login_post
+    user = User.find_by(nickname: params[:nickname])
+
+    if user&.authenticate(params[:password])
+      session[:user_id] = user.id
+      flash[:notice] = "ログインに成功しました"
+      redirect_to static_pages_index_path
+    else
+      flash[:alert] = "ニックネームかパスワードが正しくありません"
+      # redirect_to static_pages_login_path
+      redirect_to root_path
+
+    end
+  end
+
   def login_new
+    @user = User.new
   end
 
   def login_pass
-  end
+  # ログイン中ユーザーを取得
+  @user = User.find(session[:user_id])
+end
+
 
   def thread_view
   end
@@ -28,8 +47,7 @@ class StaticPagesController < ApplicationController
   def update_complete
   end
 
-   def new_post
-    # 投稿フォーム表示
+  def new_post
   end
 
   def create_post

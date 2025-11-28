@@ -1,30 +1,48 @@
 <!-- app/views/static_pages/login.html.erb -->
+
 <header>
   <h1 class="site-title">〈 SmileTalk 〉</h1>
 </header>
 
 <div class="login-wrapper">
   <div class="card login-box">
-    <div class="form-group">
-      <label>● ニックネーム</label>
-      <input type="text" class="input-field">
-    </div>
 
-    <div class="form-group">
-      <label>● パスワード</label>
-      <input type="password" class="input-field">
-    </div>
+    <!-- ログインフォーム -->
+    <%= form_with url: login_path, method: :post, local: true do |f| %>
 
-    <div class="btn-area">
-      <a href="/static_pages/thread_index.html">
-       <button class="btn-main">ログイン</button>
-      </a>
-    </div>
+      <!-- ニックネーム入力 -->
+      <div class="form-group">
+        <%= f.label :nickname, "● ニックネーム" %>
+        <%= f.text_field :nickname, class: "input-field" %>
+      </div>
+
+      <!-- パスワード入力 -->
+      <div class="form-group">
+        <%= f.label :password, "● パスワード" %>
+        <%= f.password_field :password, class: "input-field" %>
+      </div>
+
+      <!-- 送信ボタン -->
+      <div class="btn-area">
+        <%= f.submit "ログイン", class: "btn-main" %>
+      </div>
+
+    <% end %>
+
+    <!-- フラッシュメッセージ -->
+    <% if flash[:notice] %>
+      <p class="notice"><%= flash[:notice] %></p>
+    <% end %>
+    <% if flash[:alert] %>
+      <p class="alert"><%= flash[:alert] %></p>
+    <% end %>
+
   </div>
 
+  <!-- リンク -->
   <div class="links">
-  <%= link_to "新規登録はこちら", static_pages_login_new_path, class: "link-main" %>
-  <%= link_to "パスワードを忘れた場合はこちら", static_pages_login_pass_path, class: "link-main" %>
+    <%= link_to "新規登録はこちら", static_pages_login_new_path, class: "link-main" %>
+    <%= link_to "パスワードを忘れた場合はこちら", static_pages_login_pass_path, class: "link-main" %>
   </div>
 </div>
 

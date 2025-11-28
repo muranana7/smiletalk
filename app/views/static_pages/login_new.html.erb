@@ -1,5 +1,4 @@
-<!-- 新規登録画面 -->
-
+<!-- app/views/static_pages/login_new.html.erb -->
 <header>
   <h1 class="site-title">〈 新規登録画面 〉</h1>
 </header>
@@ -7,26 +6,53 @@
 <div class="login-wrapper">
   <div class="card">
 
-    <div class="form-group">
-      <label>● ニックネーム</label>
-      <input type="text" class="input-field">
-    </div>
+    <!-- フラッシュメッセージ -->
+    <% if flash.any? %>
+      <% flash.each do |key, message| %>
+        <div class="alert <%= key %>"><%= message %></div>
+      <% end %>
+    <% end %>
 
-    <div class="form-group">
-      <label>● パスワード</label>
-      <input type="password" class="input-field">
-    </div>
+    <!-- バリデーションエラー表示 -->
+    <% if @user.errors.any? %>
+      <ul class="error-messages">
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    <% end %>
 
-    <div class="form-group">
-      <label>● メールアドレス</label>
-      <input type="email" class="input-field">
-    </div>
+    <!-- 登録フォーム -->
+    <%= form_with model: @user, url: users_path, local: true do |f| %>
 
-    <button class="btn-main">登録</button>
+      <div class="form-group">
+        <label>● ニックネーム</label>
+        <%= f.text_field :nickname, class: "input-field" %>
+      </div>
+
+      <div class="form-group">
+        <label>● パスワード</label>
+        <%= f.password_field :password, class: "input-field" %>
+      </div>
+
+      <div class="form-group">
+        <label>● メールアドレス</label>
+        <%= f.email_field :email, class: "input-field" %>
+      </div>
+
+      <%= f.submit "登録", class: "btn-main" %>
+
+    <% end %>
+    <!-- form_with 終わり -->
 
   </div>
-    <!-- 元のリンク文体に統一 -->
-    <div class="links">
-      <%= link_to "戻る", root_path, class: "link-main" %>
-    </div>
+
+  <!-- 戻るボタン -->
+  <div class="links">
+    <%= link_to "戻る", root_path, class: "link-main" %>
   </div>
+</div>
+
+<footer>
+  @大学
+</footer>
