@@ -30,4 +30,4 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_equal "パスワードを更新しました", flash[:notice]
   end
 end
-cd
+
