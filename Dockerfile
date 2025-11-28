@@ -66,5 +66,5 @@ ENV RAILS_ENV=production
 # Entrypoint prepares the database (if needed)
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 
-# Start Rails server on the correct port for Render
-CMD ["./bin/rails", "server", "-b", "0.0.0.0", "-p", "10000"]
+# Start Rails server with automatic database migration for Render Free Plan
+CMD ["sh", "-c", "./bin/rails db:migrate && ./bin/rails server -b 0.0.0.0 -p 10000"]
