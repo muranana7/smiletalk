@@ -71,6 +71,6 @@ end
 
 # : 下記を追加
 group :production do
-gem 'pg', '~> 1.6', '>= 1.6.2'
+gem "pg", "~> 1.6", ">= 1.6.2"
 end
 # :
