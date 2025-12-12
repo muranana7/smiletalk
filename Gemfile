@@ -68,3 +68,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+# : 下記を追加
+group :production do
+gem 'pg', '~> 1.6', '>= 1.6.2'
+end
+# :
