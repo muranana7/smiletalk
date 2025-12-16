@@ -7,12 +7,13 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get show" do
-    user = User.create!(nickname: "tester", password: "password")
+    user = User.create!(nickname: "tester", email: "tester@example.com", password: "password")
     post = Post.create!(title: "寿司食べたい", content: "テスト投稿", user: user)
 
     get post_url(post)
     assert_response :success
   end
+
 
   test "should get new" do
     get posts_new_url
