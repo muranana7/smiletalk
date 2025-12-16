@@ -14,6 +14,13 @@
       --main-color-dark: #a487c0;
  
     }
+
+     .attached-image {
+      max-width: 300px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
  
  
  
@@ -214,32 +221,30 @@
    
     <!-- スレッドタイトル・情報 -->
     <section class="thread-header">
-      <h1 id="thread-title">雪景色のおすすめスポット教えて！</h1>
+      <h1 id="thread-title"><%= @post.title %></h1>
       <div class="thread-meta">
-        <span class="creator">作成者: 匿名A</span>
-        <time datetime="2025-11-10T15:23">2025-11-10 15:23</time>
+        <span class="creator">作成者: <%= @post.user.nickname %></span>
+        <time datetime="<%= @post.created_at.in_time_zone("Tokyo").iso8601 %>">
+          <%= @post.created_at.in_time_zone("Tokyo").strftime("%Y/%m/%d %H:%M") %>
+        </time>
+
       </div>
     </section>
+
  
     <!-- 投稿一覧 -->
-    <section class="posts">
-      <!-- 投稿カード -->
-      <article class="post">
-        <header class="post-header">
-          <span class="post-author">名無しさん (ID: 9f3a)</span>
-          <time class="post-time" datetime="2025-11-12T09:32">11/12 09:32</time>
-        </header>
-        <div class="post-body">
-          <p>軽井沢は雪景色も綺麗で食べ歩きも楽しめます。旧軽井沢の通りがおすすめです。</p>
+    <article class="post">
+      <div class="post-body">
+        <p><%= @post.content %></p>
+        <% if @post.image.attached? %>
           <figure class="post-image">
-            <img src="sample1.jpg" alt="軽井沢の雪景色">
-            <figcaption>軽井沢の街並み（例）</figcaption>
+            <%= image_tag @post.image, class: "attached-image", alt: @post.title %>
           </figure>
-        </div>
-        <footer class="post-actions">
-          <a href="/static_pages/post_edit" class="btn edit">編集/削除</a>
-        </footer>
-      </article>
+        <% end %>
+      </div>
+    </article>
+
+
 
 
       <!-- 投稿が無い場合のメッセージ -->

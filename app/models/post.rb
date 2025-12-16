@@ -1,7 +1,9 @@
 class Post < ApplicationRecord
   # Active Storage: 複数の画像を添付できるように設定
-  has_many_attached :images
+  belongs_to :user
+  has_one_attached :image
 
   # 本文 (content) は必須とする
+  validates :title, presence: true
   validates :content, presence: true
 end
