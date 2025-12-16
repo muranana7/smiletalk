@@ -53,7 +53,7 @@ end
 
   def new_post
   end
-  
+
   def create_post
       @post = current_user.posts.build(
         title: params[:title],
