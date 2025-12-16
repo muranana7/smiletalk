@@ -1,11 +1,6 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
-  content: MyText
+  title: "寿司食べたい"
+  content: "テスト投稿"
   user: one
-
-two:
-  title: MyString
-  content: MyText
-  user: two 
