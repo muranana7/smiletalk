@@ -148,6 +148,7 @@ footer {
 @media (max-width: 768px) {
   .main-content { flex-direction: column; }
 }
+
 </style>
 </head>
 <body>
@@ -174,31 +175,39 @@ footer {
         <span class="list-date">日時</span>
       </div>
       <ul class="item-list">
-        <li>
-            <a href="/static_pages/thread_view" class="item-link">
-                <span class="item-name">雪景色のおすすめスポット教えて！</span>
-                <span class="item-date">2025/11/14</span>
-            </a>
-        </li>
+        <% Post.order(created_at: :desc).each do |post| %>
+          <li>
+            <%= link_to static_pages_thread_view_path(id: post.id), class: "item-link" do %>
+              <span class="item-name"><%= post.title %></span>
+              <span class="item-date"><%= post.created_at.in_time_zone("Tokyo").strftime("%Y/%m/%d %H:%M") %></span>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
+
+
     </section>
 
     <aside class="sidebar-area">
       <h3>Myページ</h3>
       <ul class="item-list">
-        <li class="has-delete">
-          <span class="item-name">マイアイテム1</span>
-          <span class="item-date">2025/11/12</span>
-          <button class="delete-btn">削除</button>
-        </li>
-        <li class="has-delete">
-          <span class="item-name">マイアイテム2</span>
-          <span class="item-date">2025/11/10</span>
-          <button class="delete-btn">削除</button>
-        </li>
+        <% if logged_in? %>
+          <% current_user.posts.order(created_at: :desc).each do |post| %>
+            <li class="has-delete">
+              <%= link_to static_pages_thread_view_path(id: post.id), class: "item-link" do %>
+                <span class="item-name"><%= post.title %></span>
+                <span class="item-date"><%= post.created_at.strftime("%Y/%m/%d") %></span>
+              <% end %>
+            </li>
+          <% end %>
+        <% else %>
+          <li>
+            <span class="item-name">ログインしてください</span>
+          </li>
+        <% end %>
       </ul>
-    </aside>
-  </main>
+
+    </main>
 
   <footer>
     <a href="/static_pages/login" class="logout-link">ログアウト</a>
@@ -208,3 +217,4 @@ footer {
 </div>
 </body>
 </html>
+

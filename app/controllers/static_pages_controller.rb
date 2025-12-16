@@ -28,6 +28,10 @@ end
 
 
   def thread_view
+    @post = Post.find_by(id: params[:id])
+    if @post.nil?
+      redirect_to static_pages_index_path, alert: "投稿が見つかりませんでした"
+    end
   end
 
   def post_edit
@@ -51,19 +55,25 @@ end
   end
 
   def create_post
-    title = params[:title]
-    content = params[:content]
+      @post = current_user.posts.build(
+        title: params[:title],
+        content: params[:content],
+        image: params[:image]
+      )
 
-    if title.blank? || content.blank?
-      flash[:alert] = "タイトルと本文を入力してください"
-      redirect_to static_pages_new_post_path
-      return
+      if @post.save
+        flash[:notice] = "投稿が完了しました！"
+        redirect_to static_pages_thread_view_path
+      else
+        flash[:alert] = "投稿に失敗しました"
+        render :new_post
+      end
     end
 
-    File.open(Rails.root.join("tmp", "posts.txt"), "a") do |f|
-      f.puts("#{Time.now}: #{title} - #{content}")
-    end
 
-    render inline: "<script>alert('投稿が完了しました！'); window.location.href='/static_pages/thread_index';</script>"
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :content, :image)
   end
 end

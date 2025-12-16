@@ -1,5 +1,5 @@
 // Sassy
-@import "bootstrap";
+@use "bootstrap" as *;
 
 
 
@@ -100,3 +100,6 @@ footer {
 .btn-area {
     margin-top: 20px;
 }
+
+
+
