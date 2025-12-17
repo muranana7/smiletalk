@@ -1,11 +1,11 @@
 <body>
   <% flash.each do |key, message| %>
-    <% css_class = case key
+    <% bootstrap_class = case key
        when "notice" then "alert-success"
        when "alert"  then "alert-danger"
        else "alert-info"
        end %>
-    <div class="<%= css_class %>"><%= message %></div>
+    <div class="alert <%= bootstrap_class %>"><%= message %></div>
   <% end %>
 
   <%= yield %>
