@@ -32,20 +32,29 @@ class UsersController < ApplicationController
 
   # パスワード更新（再登録用）
   def update_password
-  user = User.find(session[:user_id])
+  user_params = params[:user] || {}
+  @user = User.find_by(id: session[:user_id]) || User.find_by(email: user_params[:email])
 
-  # メールやニックネームを更新対象から除外
-  user.password = params[:password]
-  user.password_confirmation = params[:password_confirmation]
+  if @user.nil?
+    flash[:alert] = "ユーザーが見つからないので、再登録画面から新規登録画面に移動しました。新規登録を行ってください。"
+    redirect_to static_pages_login_new_path and return
+  end
 
-  if user.save(validate: false)  # バリデーションをスキップ
+  @user.password = user_params[:password]
+
+  if @user.save
     flash[:notice] = "パスワードを更新しました"
-    redirect_to root_path
+    redirect_to root_path and return  # ここで必ずリダイレクト
   else
-    flash[:alert] = "パスワードの更新に失敗しました"
-    redirect_to static_pages_login_pass_path
+    flash[:alert] = @user.errors.full_messages.join(", ")
+    redirect_to static_pages_login_pass_path  # render ではなく redirect にする
   end
 end
+
+
+
+
+
 
 
   private
