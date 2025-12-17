@@ -32,20 +32,38 @@ class UsersController < ApplicationController
 
   # パスワード更新（再登録用）
   def update_password
-  user = User.find(session[:user_id])
+  user_params = params[:user] || {}
+  @user = User.find_by(id: session[:user_id]) || User.find_by(email: user_params[:email])
 
-  # メールやニックネームを更新対象から除外
-  user.password = params[:password]
-  user.password_confirmation = params[:password_confirmation]
+  if @user.nil?
+    flash.now[:alert] = "ユーザーが見つかりません"
+    @user = User.new
+    render "static_pages/login_pass" and return
+  end
 
-  if user.save(validate: false)  # バリデーションをスキップ
+  @user.password = user_params[:password]
+
+  if @user.save
     flash[:notice] = "パスワードを更新しました"
     redirect_to root_path
   else
-    flash[:alert] = "パスワードの更新に失敗しました"
-    redirect_to static_pages_login_pass_path
+    flash.now[:alert] = @user.errors.full_messages.map do |msg|
+      case msg
+      when "Password can't be blank"
+        "パスワードを入力してください"
+      when "Password is too short (minimum is 6 characters)"
+        "パスワードは6文字以上で入力してください"
+      else
+        msg
+      end
+    end.join(", ")
+    render "static_pages/login_pass"
   end
 end
+
+
+
+
 
 
   private

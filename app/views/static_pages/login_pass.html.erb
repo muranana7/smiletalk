@@ -12,36 +12,41 @@
       <div class="alert alert-danger"><%= flash[:alert] %></div>
     <% end %>
 
-    <%= form_with url: update_password_path, method: :patch, local: true do |f| %>
+    <!-- パスワード再登録フォーム -->
+    <%= form_with model: @user, url: update_password_path, method: :patch, local: true do |f| %>
 
-      <!-- ニックネーム表示（送信されない） -->
+      <!-- ニックネーム表示（ログイン済みは disabled） -->
       <div class="form-group">
-        <label>● ニックネーム</label>
-        <input type="text" value="<%= User.find(session[:user_id]).nickname %>" class="input-field" disabled>
+        <%= f.label :nickname, "● ニックネーム" %>
+        <%= f.text_field :nickname, class: "input-field", value: @user.nickname, disabled: @user.persisted? %>
       </div>
 
-      <!-- メールアドレス表示（送信されない） -->
+      <!-- メールアドレス表示／入力 -->
       <div class="form-group">
-        <label>● メールアドレス</label>
-        <input type="email" value="<%= User.find(session[:user_id]).email %>" class="input-field" disabled>
+        <%= f.label :email, "● メールアドレス" %>
+        <% if @user.persisted? %>
+          <!-- ログイン済みは表示のみ -->
+          <%= f.email_field :email, class: "input-field", value: @user.email, disabled: true %>
+        <% else %>
+          <!-- 未ログインは入力可能 -->
+          <%= f.email_field :email, class: "input-field", required: true %>
+        <% end %>
       </div>
 
       <!-- 新しいパスワード入力 -->
       <div class="form-group">
         <%= f.label :password, "● 新しいパスワード" %>
-        <%= f.password_field :password, class: "input-field" %>
+        <%= f.password_field :password, class: "input-field", required: true %>
       </div>
 
-      <!-- パスワード確認 -->
-      <div class="form-group">
-        <%= f.label :password_confirmation, "● パスワード確認" %>
-        <%= f.password_field :password_confirmation, class: "input-field" %>
-      </div>
-
+      <!-- 送信ボタン -->
       <%= f.submit "再登録", class: "btn-main" %>
+
     <% end %>
+
   </div>
 
+  <!-- 戻るリンク -->
   <div class="links">
     <%= link_to "戻る", root_path, class: "link-main" %>
   </div>

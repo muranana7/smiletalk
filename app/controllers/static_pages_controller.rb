@@ -22,8 +22,12 @@ class StaticPagesController < ApplicationController
   end
 
   def login_pass
-  # ログイン中ユーザーを取得
-  @user = User.find(session[:user_id])
+  # ログイン済みなら session[:user_id] で取得
+  @user = User.find_by(id: session[:user_id]) || User.new
+  # 未ログインでも @user が nil にならないよう User.new にする
+
+
+
 end
 
 
