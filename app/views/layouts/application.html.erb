@@ -1,15 +1,12 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>SmileTalk</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<body>
+  <% flash.each do |key, message| %>
+    <% css_class = case key
+       when "notice" then "alert-success"
+       when "alert"  then "alert-danger"
+       else "alert-info"
+       end %>
+    <div class="<%= css_class %>"><%= message %></div>
+  <% end %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
-
-  <body>
-    <%= yield %>
-  </body>
-</html>
+  <%= yield %>
+</body>
