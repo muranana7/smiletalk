@@ -35,11 +35,9 @@ class UsersController < ApplicationController
   user_params = params[:user] || {}
   @user = User.find_by(id: session[:user_id]) || User.find_by(email: params.dig(:user, :email))
   if @user.nil?
-  # ユーザーが存在しない場合のメッセージ
-  flash[:alert] = "ユーザーが見つからないので、再登録画面から新規登録画面に移動しました。新規登録を行ってください。"
-  redirect_to static_pages_login_new_path and return
-end
-
+   flash[:alert] = "ユーザーが見つからないので、再登録画面から新規登録画面に移動しました。新規登録を行ってください。"
+   redirect_to static_pages_login_new_path and return
+  end
 
   @user.password = user_params[:password]
 
