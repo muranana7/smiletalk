@@ -35,8 +35,13 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get destroy" do
-    get posts_destroy_url
-    assert_response :success
+  test "should not destroy post without login" do
+    post = posts(:one)
+
+    assert_no_difference("Post.count") do
+      delete post_url(post)
+    end
+
+    assert_redirected_to static_pages_index_path
   end
 end

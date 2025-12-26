@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "posts/create"
   get "posts/edit"
   get "posts/update"
-  get "posts/destroy"
+
   # ルート（トップページ）
   root "static_pages#login"
 
@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 
   # UsersController のルート
   resources :users, only: [ :create ]  # 新規作成のみ
+  resources :posts, only: [ :destroy, :show ]
   patch "users/update_password", to: "users#update_password", as: :update_password
 
   resources :posts, only: [ :show ]

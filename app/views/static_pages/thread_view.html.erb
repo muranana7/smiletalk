@@ -241,6 +241,10 @@
             <%= image_tag @post.image, class: "attached-image", alt: @post.title %>
           </figure>
         <% end %>
+        <% if @post.user == current_user %>
+          <%= button_to "削除する", post_path(@post), method: :delete %>
+        <% end %>
+
       </div>
     </article>
 
