@@ -36,8 +36,14 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy post" do
+    user = User.create!(nickname: "tester", email: "tester@example.com", password: "password")
+    post = Post.create!(title: "寿司食べたい", content: "テスト投稿", user: user)
+
+  # ログイン処理（Devise を使ってる場合）
+    sign_in user
+
     assert_difference("Post.count", -1) do
-      delete post_url(posts(:one))
+      delete post_url(post)
     end
 
     assert_redirected_to static_pages_index_path

@@ -5,3 +5,7 @@ one:
   content: "テスト投稿"
   user: one
 
+two:
+  title: "ラーメン食べたい"
+  content: "サンプル投稿"
+  user: two
