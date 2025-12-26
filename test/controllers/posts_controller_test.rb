@@ -35,8 +35,11 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get destroy" do
-    get posts_destroy_url
-    assert_response :success
+  test "should destroy post" do
+    assert_difference("Post.count", -1) do
+      delete post_url(posts(:one))
+    end
+
+    assert_redirected_to static_pages_index_path
   end
 end
