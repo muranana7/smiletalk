@@ -12,11 +12,4 @@ module ActiveSupport
 
     # Add more helper methods to be used by all tests here...
   end
-  class ActionDispatch::IntegrationTest
-    def login_as(user)
-      @controller.stub(:current_user, user) do
-        yield
-      end
-    end
-  end
 end
