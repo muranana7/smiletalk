@@ -14,7 +14,7 @@ class PostsController < ApplicationController
     @post = Post.new(
       content: params[:content],
       image: params[:image],
-      user: current_user   # ← これが必要！
+      user: current_user 
     )
     @post.save
     redirect_to static_pages_thread_view_path(id: @post.id)
