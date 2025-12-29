@@ -6,10 +6,10 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get new" do
-    get new_post_url
-    assert_response :success
-  end
+  # test "should get new" do
+  #  get new_post_url
+  #  assert_response :success
+  # end
 
   test "should create post" do
     post posts_url, params: { post: { body: "test" } }

@@ -20,14 +20,13 @@ class PostsController < ApplicationController
   end
 
   def create
-    @thread = Thread.find(params[:thread_id])
-    @post = @thread.posts.new(post_params)
+    @post = Post.new(post_params)
     @post.user = current_user
 
     if @post.save
-      redirect_to thread_path(@thread)
+      redirect_to @post
     else
-      render "static_pages/thread_view"
+      render :new
     end
   end
 
@@ -54,5 +53,4 @@ class PostsController < ApplicationController
     render :edit
   end
 end
-
 end
