@@ -4,8 +4,8 @@ class PostsController < ApplicationController
   end
 
   def show
-    @thread = Thread.find(params[:id])
-    @reply = @thread.posts.new
+    @post = Post.find(params[:id])
+    @reply = @post.replies.new
   end
 
   def post_params
