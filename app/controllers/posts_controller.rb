@@ -20,7 +20,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @thread = Post.find(params[:thread_id])
+    @thread = Thread.find(params[:thread_id])
     @post = @thread.posts.new(post_params)
     @post.user = current_user
 
@@ -46,5 +46,13 @@ class PostsController < ApplicationController
   end
 
   def update
+  @post = Post.find(params[:id])
+
+  if @post.update(post_params)
+    redirect_to post_path(@post)
+  else
+    render :edit
   end
+end
+
 end
