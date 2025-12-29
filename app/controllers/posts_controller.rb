@@ -8,6 +8,8 @@ class PostsController < ApplicationController
     @reply = @post.replies.new
   end
 
+
+
   def post_params
     params.require(:post).permit(:nickname, :body, :image)
   end
@@ -18,7 +20,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @thread = Thread.find(params[:thread_id])
+    @thread = Post.find(params[:thread_id])
     @post = @thread.posts.new(post_params)
     @post.user = current_user
 
