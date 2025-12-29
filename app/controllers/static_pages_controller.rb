@@ -34,7 +34,7 @@ end
       redirect_to static_pages_index_path, alert: "投稿が見つかりませんでした"
       return
     end
-    
+
     @replies = @post.replies.order(created_at: :asc)
     @reply = @post.replies.build
   end

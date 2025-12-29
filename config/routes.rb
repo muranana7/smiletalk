@@ -11,17 +11,17 @@ Rails.application.routes.draw do
 
   # threads と posts（掲示板構造）
   resources :threads do
-    resources :replies, only: [:create]
+    resources :replies, only: [ :create ]
   end
 
-  resources :posts, only: [:show]
+  resources :posts, only: [ :show ]
 
   resources :posts do
-    resources :replies, only: [:create]
+    resources :replies, only: [ :create ]
   end
-  
+
   # Users
-  resources :users, only: [:create]
+  resources :users, only: [ :create ]
   patch "users/update_password", to: "users#update_password", as: :update_password
 
   # StaticPagesController のルート
