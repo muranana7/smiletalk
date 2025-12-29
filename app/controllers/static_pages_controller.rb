@@ -32,7 +32,11 @@ end
     @post = Post.find_by(id: params[:id])
     if @post.nil?
       redirect_to static_pages_index_path, alert: "投稿が見つかりませんでした"
+      return
     end
+    
+    @replies = @post.replies.order(created_at: :asc)
+    @reply = @post.replies.build
   end
 
   def post_edit

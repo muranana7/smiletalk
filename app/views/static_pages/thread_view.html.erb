@@ -207,11 +207,10 @@
   <!-- ヘッダー -->
   <header class="site-header">
     <div class="container">
-      <a class="logo" href="/">掲示板アプリ</a>
+      <a class="logo" href="/">ログアウトする</a>
       <nav class="main-nav" aria-label="主要ナビゲーション">
         <a href="/static_pages/login"></a>  
         <a href="/static_pages/thread_index">スレッド一覧</a>
-        <button class="logout">ログアウト</button>
       </nav>
     </div>
   </header>
@@ -246,6 +245,19 @@
         <% end %>
 
       </div>
+
+      <% @replies.each do |reply| %>
+        <div class="reply">
+          <strong><%= reply.nickname.presence || "匿名" %></strong>
+          <p><%= reply.body %></p>
+          <small>
+              <%= reply.created_at.in_time_zone("Tokyo").strftime("%Y/%m/%d %H:%M") %>
+        </small>
+      </div>
+    <% end %>
+
+
+
     </article>
 
 
@@ -260,15 +272,12 @@
     <!-- 返信フォーム -->
     <aside class="reply-area">
       <h2>返信する</h2>
-      <form action="/threads/12/posts" method="post" enctype="multipart/form-data">
-        <input type="text" name="nickname" placeholder="ニックネーム（任意）" maxlength="30">
-        <textarea name="body" rows="5" placeholder="返信内容を入力" required></textarea>
-        <input type="file" name="image" accept="image/*">
-        <div class="form-actions">
-          <button type="submit" class="btn primary">送信</button>
-          <button type="button" class="btn secondary">プレビュー</button>
-        </div>
-      </form>
+      
+      <%= form_with model: [@post, @reply], local: true do |f| %>
+        <%= f.text_field :nickname, placeholder: "ニックネーム（任意）", maxlength: 30 %>
+        <%= f.text_area :body, rows: 5, placeholder: "返信内容を入力", required: true %>
+        <%= f.submit "返信" %>
+      <% end %>
     </aside>
  
   </main>

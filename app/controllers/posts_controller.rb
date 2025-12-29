@@ -4,22 +4,30 @@ class PostsController < ApplicationController
   end
 
   def show
-    @post = Post.find(params[:id])
+    @thread = Thread.find(params[:id])
+    @reply = @thread.posts.new
   end
 
+  def post_params
+    params.require(:post).permit(:nickname, :body, :image)
+  end
+
+
+ 
   def new
   end
 
-  def create_post
-    @post = Post.new(
-      content: params[:content],
-      image: params[:image],
-      user: current_user
-    )
-    @post.save
-    redirect_to static_pages_thread_view_path(id: @post.id)
-  end
+  def create
+    @thread = Thread.find(params[:thread_id])
+    @post = @thread.posts.new(post_params)
+    @post.user = current_user
 
+    if @post.save
+      redirect_to thread_path(@thread)
+    else
+      render "static_pages/thread_view"
+    end
+  end
 
   def destroy
     @post = Post.find(params[:id])

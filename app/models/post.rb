@@ -6,4 +6,7 @@ class Post < ApplicationRecord
   # 本文 (content) は必須とする
   validates :title, presence: true
   validates :content, presence: true
+
+  has_many :replies, dependent: :destroy
+  belongs_to :user
 end
