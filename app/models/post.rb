@@ -8,5 +8,5 @@ class Post < ApplicationRecord
   validates :content, presence: true
 
   has_many :replies, dependent: :destroy
-  belongs_to :user
+  belongs_to :user, optional: true
 end
