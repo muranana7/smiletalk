@@ -42,10 +42,6 @@ end
   def post_edit
   end
 
-  def delete_post
-    redirect_to static_pages_delete_complete_path
-  end
-
   def delete_complete
   end
 
@@ -75,10 +71,54 @@ end
       end
     end
 
+      def delete_post
+    post = Post.find_by(id: params[:post_id])
+
+    unless post
+      redirect_back fallback_location: root_path, alert: "投稿が見つかりません"
+      return
+    end
+
+    unless current_user && post.user_id == current_user.id
+      redirect_back fallback_location: root_path, alert: "自分の投稿のみ削除できます"
+      return
+    end
+
+    post.destroy
+    redirect_to static_pages_delete_complete_path
+  end
+
+  def delete_complete
+  end
+
+  def update_post
+    post = Post.find_by(id: params[:post_id])
+
+    unless post
+      redirect_back fallback_location: root_path, alert: "投稿が見つかりません"
+      return
+    end
+
+    unless current_user && post.user_id == current_user.id
+      redirect_back fallback_location: root_path, alert: "自分の投稿のみ修正できます"
+      return
+    end
+
+    post.update(content: params[:content])
+    redirect_to static_pages_update_complete_path
+  end
+
+  def update_complete
+  end
+  
 
   private
 
   def post_params
     params.require(:post).permit(:title, :content, :image)
   end
+
 end
+
+
+  
