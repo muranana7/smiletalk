@@ -21,14 +21,16 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.user = current_user
-
+    
+    if current_user
+      @post.user = current_user
+    end
+    
     if @post.save
       redirect_to @post
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
-  end
 
   def destroy
     @post = Post.find(params[:id])

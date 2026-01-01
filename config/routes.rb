@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :users, only: [ :create ]  # 新規作成のみ
   patch "users/update_password", to: "users#update_password", as: :update_password
 
-  resources :posts
+  resources :posts, only: [ :show ]
   # ヘルスチェック
   get "up" => "rails/health#show", as: :rails_health_check
 end
