@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resources :replies, only: [ :create ]
   end
 
-  resources :posts, only: [ :show ]
+  resources :posts, only: [ :show,:create ]
 
   resources :posts do
     resources :replies, only: [ :create ]
