@@ -28,10 +28,4 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
   end
 
-  post posts_url, params: {
-    post: {
-      title: "test",
-      content: "hello"
-    }
-  }
 end
