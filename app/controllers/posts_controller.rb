@@ -24,9 +24,9 @@ class PostsController < ApplicationController
     @post.user = current_user
 
     if @post.save
-      redirect_to posts_path
+      redirect_to @post
     else
-      render :new, status: :unprocessable_entity
+      render :new
     end
   end
 
