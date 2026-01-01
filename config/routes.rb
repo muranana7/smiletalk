@@ -1,21 +1,13 @@
 Rails.application.routes.draw do
+  get "posts/index"
+  get "posts/show"
+  get "posts/new"
+  get "posts/create"
+  get "posts/edit"
+  get "posts/update"
+  get "posts/destroy"
   # ルート（トップページ）
   root "static_pages#login"
-
-  # threads と posts（掲示板構造）
-  resources :threads do
-    resources :replies, only: [ :create ]
-  end
-
-  resources :posts, only: [ :show,:create ]
-
-  resources :posts do
-    resources :replies, only: [ :create ]
-  end
-
-  # Users
-  resources :users, only: [ :create ]
-  patch "users/update_password", to: "users#update_password", as: :update_password
 
   # StaticPagesController のルート
   get  "static_pages/login", to: "static_pages#login",      as: :static_pages_login
@@ -35,7 +27,9 @@ Rails.application.routes.draw do
   post "static_pages/create_post", to: "static_pages#create_post", as: :static_pages_create_post
   # UsersController のルート
   resources :users, only: [ :create ]  # 新規作成のみ
+  patch "users/update_password", to: "users#update_password", as: :update_password
 
+  resources :posts, only: [ :show ]
   # ヘルスチェック
   get "up" => "rails/health#show", as: :rails_health_check
 end

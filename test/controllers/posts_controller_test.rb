@@ -27,4 +27,11 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     patch post_url(post), params: { post: { body: "updated" } }
     assert_response :redirect
   end
+
+  post posts_url, params: {
+    post: {
+      title: "test",
+      content: "hello"
+    }
+  }
 end
