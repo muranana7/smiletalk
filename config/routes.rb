@@ -36,4 +36,3 @@ Rails.application.routes.draw do
   resources :replies, only: :create
   end
 end
-
