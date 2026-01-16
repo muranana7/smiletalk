@@ -2,9 +2,7 @@ Rails.application.routes.draw do
   get "posts/index"
   get "posts/show"
   get "posts/new"
-  get "posts/create"
   get "posts/edit"
-  get "posts/update"
 
   # ルート（トップページ）
   root "static_pages#login"
@@ -31,7 +29,11 @@ Rails.application.routes.draw do
   resources :posts, only: [ :destroy, :show ]
   patch "users/update_password", to: "users#update_password", as: :update_password
 
-  resources :posts, only: [ :show ]
   # ヘルスチェック
   get "up" => "rails/health#show", as: :rails_health_check
+
+  resources :posts do
+  resources :replies, only: :create
+  end
 end
+

@@ -207,11 +207,12 @@
   <!-- ヘッダー -->
   <header class="site-header">
     <div class="container">
-      <a class="logo" href="/">掲示板アプリ</a>
+      <h1>掲示板アプリ</h1>
       <nav class="main-nav" aria-label="主要ナビゲーション">
-        <a href="/static_pages/login"></a>  
+        <h2>
+        <a href="/static_pages/login">ログイン画面</a>  
         <a href="/static_pages/thread_index">スレッド一覧</a>
-        <button class="logout">ログアウト</button>
+        </h2>
       </nav>
     </div>
   </header>
@@ -236,37 +237,50 @@
     <article class="post">
       <div class="post-body">
         <p><%= @post.content %></p>
+
         <% if @post.image.attached? %>
           <figure class="post-image">
             <%= image_tag @post.image, class: "attached-image", alt: @post.title %>
           </figure>
         <% end %>
+
         <% if @post.user == current_user %>
           <%= button_to "削除する", post_path(@post), method: :delete %>
         <% end %>
-
       </div>
     </article>
 
+    <!-- 返信一覧 -->
+    <section class="replies">
+      <h2>返信一覧</h2>
 
+      <% @post.replies.each do |reply| %>
+        <div class="reply card">
+          <p><strong><%= reply.nickname.presence || "名無し" %></strong></p>
+          <p><%= reply.body %></p>
 
+          <% if reply.image.attached? %>
+            <%= image_tag reply.image, class: "attached-image" %>
+          <% end %>
 
-      <!-- 投稿が無い場合のメッセージ -->
-      <!-- <p class="empty">まだ投稿がありません。最初の投稿をしましょう！</p> -->
+          <time><%= reply.created_at.strftime("%Y/%m/%d %H:%M") %></time>
+        </div>
+      <% end %>
     </section>
- 
 
- 
     <!-- 返信フォーム -->
     <aside class="reply-area">
       <h2>返信する</h2>
-      <form action="/threads/12/posts" method="post" enctype="multipart/form-data">
-        <input type="text" name="nickname" placeholder="ニックネーム（任意）" maxlength="30">
-        <textarea name="body" rows="5" placeholder="返信内容を入力" required></textarea>
-        <input type="file" name="image" accept="image/*">
+
+      <form action="<%= post_replies_path(@post) %>" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
+
+        <input type="text" name="reply[nickname]" placeholder="ニックネーム（任意）" maxlength="30">
+        <textarea name="reply[body]" rows="5" placeholder="返信内容を入力" required></textarea>
+        <input type="file" name="reply[image]" accept="image/*">
+
         <div class="form-actions">
           <button type="submit" class="btn primary">送信</button>
-          <button type="button" class="btn secondary">プレビュー</button>
         </div>
       </form>
     </aside>

@@ -189,62 +189,66 @@ footer {
 
     <aside class="sidebar-area">
       <h3>Myページ</h3>
-      <html>
-        <head>
-          <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
-          <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
-        </head>
-        <body>
-          <div id="calendar"></div>
+      <div id="calendar"></div>
+      <script>
+      document.addEventListener("turbo:load", function () {
+        const calendarEl = document.getElementById("calendar");
+        if (!calendarEl) return;
 
-          <script>
-            document.addEventListener("DOMContentLoaded", function () {
-              const calendarEl = document.getElementById("calendar");
-              const countryCode = "JP"; // 日本
+        const countryCode = "JP";
 
-              // 年を指定して祝日を取得する関数
-              async function loadHolidays(year) {
-                const response = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${year}/${countryCode}`);
-                const holidays = await response.json();
+        async function loadHolidays(year) {
+          const response = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${year}/${countryCode}`);
+          const holidays = await response.json();
 
-                return holidays.map(h => ({
-                  title: h.localName,
-                  start: h.date,
-                  allDay: true,
-                  display: "block",
-                  color: "#ff9f89"
-                }));
-              }
-              const calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: "dayGridMonth",
+          return holidays.map(h => ({
+            title: h.localName,
+            start: h.date,
+            allDay: true,
+            display: "block",
+            color: "#ff9f89"
+          }));
+        }
 
-                // ★ 土日を色付けする
-                dayCellDidMount: function(info) {
-                  const day = info.date.getDay(); // 0=日曜, 6=土曜
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: "dayGridMonth",
 
-                  if (day === 0) {
-                    info.el.style.backgroundColor = "#ffe5e5"; // 日曜：薄い赤
-                  }
-                  if (day === 6) {
-                    info.el.style.backgroundColor = "#e5f0ff"; // 土曜：薄い青
-                  }
-                },
+          dayCellDidMount: function(info) {
+            const today = new Date();
+            const cellDate = info.date;
 
-                // 月が切り替わるたびに実行される
-                datesSet: async (info) => {
-                  const year = info.view.currentStart.getFullYear(); // 表示中の年を取得
-                  const holidayEvents = await loadHolidays(year);
+            // 今日を最優先で色付け
+            if (
+              cellDate.getFullYear() === today.getFullYear() &&
+              cellDate.getMonth() === today.getMonth() &&
+              cellDate.getDate() === today.getDate()
+            ) {
+              info.el.style.backgroundColor = "#fff3b0"; // 今日だけ黄色
+              return; // ← 今日なら土日の色付けを上書きしない
+            }
 
-                  calendar.removeAllEvents();       // 古いイベントを削除
-                  calendar.addEventSource(holidayEvents); // 新しい祝日を追加
-                }
-              });
+            // 土日色付け
+            const day = cellDate.getDay(); // 0=日曜, 6=土曜
+            if (day === 0) info.el.style.backgroundColor = "#ffe5e5"; // 日曜
+            if (day === 6) info.el.style.backgroundColor = "#e5f0ff"; // 土曜
+          },
 
-              calendar.render();
-            });
-          </script>
-        </body>
-      </html>
+
+          datesSet: async (info) => {
+            const year = info.view.currentStart.getFullYear();
+            const holidayEvents = await loadHolidays(year);
+
+            calendar.removeAllEvents();
+            calendar.addEventSource(holidayEvents);
+          }
+        });
+
+        calendar.render();
+        });
+        document.addEventListener("turbo:load", function () {
+          // カレンダーの初期化コード
+        });
+      </script>
       <div class="list-header"></div>
       <div class="list-header">
        <span class="list-title">タイトル名</span>
