@@ -2,7 +2,7 @@ require "test_helper"
 
 class PostsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get posts_index_url
+    get posts_url
     assert_response :success
   end
 
@@ -16,7 +16,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
 
 
   test "should get new" do
-    get posts_new_url
+    get new_post_url
     assert_response :success
   end
 
@@ -26,14 +26,14 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    get posts_edit_url
-    assert_response :success
+    get edit_post_url(post(:one))
+    assert_response :redirect
   end
 
   test "should get update" do
     post_record = posts(:one)
     patch post_url(post_record), params: { post: { title: "updated" } }
-    assert_response :success
+    assert_response :redirect
   end
 
   test "should not destroy post without login" do
