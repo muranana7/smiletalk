@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # bootstrapの導入
 # Gemfile
 gem "dartsass-rails"
-gem "bootstrap", "~> 5.3.3"
+gem "bootstrap", "~> 5.3.8"
 
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
