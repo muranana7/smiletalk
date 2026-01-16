@@ -2,7 +2,7 @@ require "test_helper"
 
 class RepliesControllerTest < ActionDispatch::IntegrationTest
   test "should get create" do
-    get replies_create_url
+    post replies_url, params: { reply: { content: "aaa", post_id: posts(:one).id } }
     assert_response :success
   end
 end

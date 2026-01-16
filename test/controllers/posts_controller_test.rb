@@ -21,7 +21,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get create" do
-    get posts_create_url
+    post posts_url, params: { post: { title: "test", content: "aaa" } }
     assert_response :success
   end
 
@@ -31,7 +31,8 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get update" do
-    get posts_update_url
+    post_record = posts(:one)
+    patch post_url(post_record), params: { post: { title: "updated" } }
     assert_response :success
   end
 
