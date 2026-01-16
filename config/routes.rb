@@ -35,5 +35,4 @@ Rails.application.routes.draw do
   resources :posts do
   resources :replies, only: :create
   end
-  
 end
