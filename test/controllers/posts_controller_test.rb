@@ -26,14 +26,14 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    get edit_post_url(post(:one))
-    assert_response :redirect
+    get edit_post_url(posts(:one))
+    assert_response :success
   end
 
   test "should get update" do
     post_record = posts(:one)
     patch post_url(post_record), params: { post: { title: "updated" } }
-    assert_response :redirect
+    assert_response :success
   end
 
   test "should not destroy post without login" do
