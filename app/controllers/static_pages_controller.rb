@@ -26,7 +26,9 @@ class StaticPagesController < ApplicationController
   @user = User.find_by(id: session[:user_id]) || User.new
   # 未ログインでも @user が nil にならないよう User.new にする
 end
-
+  def post_show_check
+    @post_id = params[:id]
+  end
 
   def thread_view
     @post = Post.find_by(id: params[:id])
@@ -64,7 +66,7 @@ end
 
       if @post.save
         flash[:notice] = "投稿が完了しました！"
-        redirect_to static_pages_thread_view_path
+        redirect_to static_pages_thread_view_path(id: @post.id)
       else
         flash[:alert] = "投稿に失敗しました"
         render :new_post
