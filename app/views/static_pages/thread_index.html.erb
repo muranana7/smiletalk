@@ -149,6 +149,57 @@ footer {
   .main-content { flex-direction: column; }
 }
 
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal {
+  background: #fff;
+  padding: 20px 24px;
+  border-radius: 12px;
+  width: 300px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.modal-text {
+  margin-bottom: 20px;
+  font-size: 1rem;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-cancel {
+  background: #ddd;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.modal-delete {
+  background: #d9534f;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
 </style>
 </head>
 <body>
@@ -262,6 +313,18 @@ footer {
                 <span class="item-name"><%= post.title %></span>
                 <span class="item-date"><%= post.created_at.strftime("%Y/%m/%d") %></span>
               <% end %>
+              <!-- 編集 -->
+              <%= link_to "編集",
+                edit_post_path(post),
+                class: "delete-btn",
+                style: "background:#6b9cff;" %>
+                
+              <%= button_to "削除",
+                post_path(post),
+                method: :delete,
+                data: { turbo_confirm: "本当に削除しますか？" },
+                class: "delete-btn" %>
+
             </li>
           <% end %>
         <% else %>
@@ -279,6 +342,47 @@ footer {
     <a href="#" class="board-link">掲示板</a>
   </footer>
 </div>
+
+<div id="deleteModal" class="modal-overlay hidden">
+  <div class="modal">
+    <p>本当に削除しますか？</p>
+
+    <div class="modal-actions">
+      <button type="button" id="cancelDelete" class="modal-cancel">
+        キャンセル
+      </button>
+
+      <%= form_with url: "", method: :delete, id: "deleteForm", data: { turbo: false } do %>
+        <button type="submit" class="modal-delete">削除する</button>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+<script>
+document.addEventListener("turbo:load", () => {
+  const modal = document.getElementById("deleteModal");
+  const cancelBtn = document.getElementById("cancelDelete");
+  const form = document.getElementById("deleteForm");
+
+  if (!modal) return;
+
+  document.querySelectorAll(".js-delete").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.preventDefault();
+      const postId = btn.dataset.postId;
+      form.action = `/posts/${postId}`;
+      modal.classList.remove("hidden");
+    });
+  });
+
+  cancelBtn.addEventListener("click", () => {
+    modal.classList.add("hidden");
+  });
+});
+</script>
+
 </body>
 </html>
 

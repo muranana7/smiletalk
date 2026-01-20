@@ -1,2 +1,11 @@
 <h1>Posts#show</h1>
 <p>Find me in app/views/posts/show.html.erb</p>
+
+<%= link_to "削除",
+    post_path(@post),
+    data: {
+      turbo_method: :delete,
+      turbo_confirm: "本当に削除しますか？"
+    },
+    class: "text-red-600 hover:underline"
+%>

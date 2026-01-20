@@ -45,6 +45,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_16_031222) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.text "body"
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
@@ -52,7 +53,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_16_031222) do
     t.integer "post_id", null: false
     t.string "nickname"
     t.text "body"
-    t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["post_id"], name: "index_replies_on_post_id"
