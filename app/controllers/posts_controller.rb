@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authorize_user!, only: [:edit, :update, :destroy]
+  before_action :set_post, only: [ :show, :edit, :update, :destroy ]
+  before_action :authorize_user!, only: [ :edit, :update, :destroy ]
 
   # 未ログイン時のアクセス制御
-  before_action :require_login, only: [:new, :create]
+  before_action :require_login, only: [ :new, :create ]
 
   def index
     @posts = Post.all
