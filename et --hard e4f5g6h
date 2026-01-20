@@ -1,0 +1,88 @@
+[33m7d1a6b6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/post-edit-delete[m[33m, [m[1;31morigin/feature/post-edit-delete[m[33m)[m HEAD@{0}: reset: moving to origin/feature/post-edit-delete
+[33m7d1a6b6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/post-edit-delete[m[33m, [m[1;31morigin/feature/post-edit-delete[m[33m)[m HEAD@{1}: reset: moving to origin/feature/post-edit-delete
+[33m9839f4a[m HEAD@{2}: rebase (abort): returning to refs/heads/feature/post-edit-delete
+[33m22c48df[m HEAD@{3}: rebase (pick): 返信機能の追加
+[33m1557248[m HEAD@{4}: rebase (pick): 返信機能の追加
+[33m21e0d0b[m HEAD@{5}: rebase (pick): 返信機能の追加
+[33m354901a[m HEAD@{6}: rebase (continue): 返信機能の追加
+[33m3822ffc[m HEAD@{7}: rebase (continue): 返信機能の追加
+[33mf014f77[m HEAD@{8}: rebase (continue): 返信機能の追加
+[33m106b23b[m HEAD@{9}: rebase (continue): 返信機能の追加
+[33m7d1a6b6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/post-edit-delete[m[33m, [m[1;31morigin/feature/post-edit-delete[m[33m)[m HEAD@{10}: pull origin feature/post-edit-delete --rebase (start): checkout 7d1a6b688b27f01db74be634c9280a02a369124a
+[33m9839f4a[m HEAD@{11}: rebase (abort): returning to refs/heads/feature/post-edit-delete
+[33m7d1a6b6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/post-edit-delete[m[33m, [m[1;31morigin/feature/post-edit-delete[m[33m)[m HEAD@{12}: pull origin feature/post-edit-delete --rebase (start): checkout 7d1a6b688b27f01db74be634c9280a02a369124a
+[33m9839f4a[m HEAD@{13}: commit: 投稿編集画面のUIを追加
+[33ma8f6169[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{14}: checkout: moving from main to feature/post-edit-delete
+[33ma8f6169[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{15}: checkout: moving from feature/post-edit-delete to main
+[33ma8f6169[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{16}: reset: moving to origin/main
+[33m7d1a6b6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/post-edit-delete[m[33m, [m[1;31morigin/feature/post-edit-delete[m[33m)[m HEAD@{17}: checkout: moving from main to feature/post-edit-delete
+[33ma8f6169[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m HEAD@{18}: pull origin main: Fast-forward
+[33me4b7136[m HEAD@{19}: checkout: moving from feature/post-edit-delete to main
+[33m7d1a6b6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/post-edit-delete[m[33m, [m[1;31morigin/feature/post-edit-delete[m[33m)[m HEAD@{20}: commit: Fix rubocop offenses
+[33m43ab08a[m HEAD@{21}: commit: Fix rubocop offenses
+[33m8f6adfe[m HEAD@{22}: commit: Fix rubocop offenses
+[33m09c64e7[m HEAD@{23}: commit: Fix rubocop offenses
+[33m2d52c35[m HEAD@{24}: commit: Fix: create失敗時に正しいnewテンプレートをrender
+[33m6069de5[m HEAD@{25}: commit: Fix: create失敗時に正しいnewテンプレートをrender
+[33m4ba94b5[m HEAD@{26}: commit: Fix: create失敗時に正しいnewテンプレートをrender
+[33m63715c6[m HEAD@{27}: commit: Fix: create失敗時に正しいnewテンプレートをrender
+[33mc75c94c[m HEAD@{28}: commit: Fix: create失敗時に正しいnewテンプレートをrender
+[33m9048650[m HEAD@{29}: commit: Fix: Bootstrapを正式導入してRender環境で動作させる
+[33mc489a84[m HEAD@{30}: commit: Fix: Render環境でBootstrapを読み込めるように設定
+[33m68e36f9[m HEAD@{31}: commit: WIP: 投稿編集・削除遷移の実装途中を共有
+[33m8a381c5[m HEAD@{32}: merge main: Merge made by the 'ort' strategy.
+[33m069b999[m HEAD@{33}: checkout: moving from main to feature/post-edit-delete
+[33me4b7136[m HEAD@{34}: pull origin main: Fast-forward
+[33mfeba881[m HEAD@{35}: checkout: moving from main to main
+[33mfeba881[m HEAD@{36}: checkout: moving from feature/post-edit-delete to main
+[33m069b999[m HEAD@{37}: reset: moving to HEAD
+[33m069b999[m HEAD@{38}: checkout: moving from main to feature/post-edit-delete
+[33mfeba881[m HEAD@{39}: pull origin main: Fast-forward
+[33me2979e7[m HEAD@{40}: checkout: moving from feature/post-edit-delete to main
+[33m069b999[m HEAD@{41}: commit: Rubocop指摘の修正（空白・配列表記）
+[33m2aa183f[m HEAD@{42}: commit: Rubocop指摘の修正（空白・配列表記）
+[33md992d93[m HEAD@{43}: commit: Rubocop指摘の修正（空白・配列表記）
+[33m7521f26[m HEAD@{44}: commit: Rubocop指摘の修正（空白・配列表記）
+[33m0052bc9[m HEAD@{45}: commit: Rubocop指摘の修正（空白・配列表記）
+[33m2ecdef7[m HEAD@{46}: commit: Rubocop指摘の修正（空白・配列表記）
+[33m84bd9e6[m HEAD@{47}: commit: Rubocop指摘の修正（空白・配列表記）
+[33m01d8995[m HEAD@{48}: commit: Rubocop指摘の修正（空白・配列表記）
+[33md1b7e81[m HEAD@{49}: commit: Rubocop指摘の修正（空白・配列表記）
+[33ma63aeb8[m HEAD@{50}: commit: Rubocop指摘の修正（空白・配列表記）
+[33ma3ad060[m HEAD@{51}: commit: Rubocop指摘の修正（空白・配列表記）
+[33mae0d9dd[m HEAD@{52}: rebase (finish): returning to refs/heads/feature/post-edit-delete
+[33mae0d9dd[m HEAD@{53}: rebase (continue): 投稿の修正・削除機能を追加（自分の投稿のみ）
+[33ma272af4[m HEAD@{54}: pull origin feature/post-edit-delete --rebase (start): checkout a272af48808dff20e51c6cb3f3fc4c08c6493bcf
+[33mab34904[m HEAD@{55}: commit: 投稿の修正・削除機能を追加（自分の投稿のみ）
+[33me2979e7[m HEAD@{56}: checkout: moving from main to feature/post-edit-delete
+[33me2979e7[m HEAD@{57}: checkout: moving from feature/post-edit-delete to main
+[33me2979e7[m HEAD@{58}: checkout: moving from main to feature/post-edit-delete
+[33me2979e7[m HEAD@{59}: checkout: moving from feature/post-edit-delete to main
+[33me2979e7[m HEAD@{60}: checkout: moving from main to feature/post-edit-delete
+[33me2979e7[m HEAD@{61}: checkout: moving from feature/post-edit-delete to main
+[33me2979e7[m HEAD@{62}: merge main: Fast-forward
+[33md9b726b[m HEAD@{63}: checkout: moving from main to feature/post-edit-delete
+[33me2979e7[m HEAD@{64}: pull origin main: Fast-forward
+[33m91ea0fd[m HEAD@{65}: checkout: moving from main to main
+[33m91ea0fd[m HEAD@{66}: reset: moving to HEAD
+[33m91ea0fd[m HEAD@{67}: checkout: moving from feature/post-edit-delete to main
+[33md9b726b[m HEAD@{68}: checkout: moving from main to feature/post-edit-delete
+[33m91ea0fd[m HEAD@{69}: checkout: moving from main to main
+[33m91ea0fd[m HEAD@{70}: checkout: moving from feature/post-edit-delete to main
+[33md9b726b[m HEAD@{71}: checkout: moving from feature/post-edit-delete to feature/post-edit-delete
+[33md9b726b[m HEAD@{72}: checkout: moving from feature/post-edit-delete to feature/post-edit-delete
+[33md9b726b[m HEAD@{73}: commit (merge): torityanを修正
+[33md7588e8[m HEAD@{74}: checkout: moving from main to feature/post-edit-delete
+[33m91ea0fd[m HEAD@{75}: checkout: moving from feature/post-edit-delete to main
+[33md7588e8[m HEAD@{76}: commit: torityanを修正
+[33m2f4710b[m HEAD@{77}: checkout: moving from main to feature/post-edit-delete
+[33m91ea0fd[m HEAD@{78}: checkout: moving from main to main
+[33m91ea0fd[m HEAD@{79}: commit: torityanを修正
+[33m6a0f0d1[m HEAD@{80}: checkout: moving from main to main
+[33m6a0f0d1[m HEAD@{81}: pull origin main: Fast-forward
+[33m000f638[m HEAD@{82}: checkout: moving from feature/post-edit-delete to main
+[33m2f4710b[m HEAD@{83}: commit: RuboCopで末尾空白を修正
+[33meeab9cd[m HEAD@{84}: commit: 完成: 投稿編集・削除フォームと完了ページを実装
+[33m5856551[m[33m ([m[1;32mfeature/login-pages[m[33m)[m HEAD@{85}: checkout: moving from feature/login-pages to feature/post-edit-delete
+[33m5856551[m[33m ([m[1;32mfeature/login-pages[m[33m)[m HEAD@{86}: checkout: moving from main to feature/login-pages
+[33m000f638[m HEAD@{87}: clone: f
