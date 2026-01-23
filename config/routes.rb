@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root "static_pages#login"
 
-  # StaticPages
+  # StaticPagesできた
   get  "static_pages/login",       to: "static_pages#login",       as: :static_pages_login
   post "static_pages/login",       to: "static_pages#login_post",  as: :login
   get  "static_pages/login_new",   to: "static_pages#login_new",   as: :static_pages_login_new
