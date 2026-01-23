@@ -244,9 +244,6 @@
           </figure>
         <% end %>
 
-        <% if @post.user == current_user %>
-          <%= button_to "削除する", post_path(@post), method: :delete %>
-        <% end %>
       </div>
     </article>
 
