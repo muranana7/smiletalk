@@ -36,7 +36,7 @@ class PostsController < ApplicationController
     if @post.user == current_user && @post.update(params.permit(:content, :image))
       redirect_to static_pages_thread_view_path(id: @post.id)
     else
-      redirect_to static_pages_index_path, alert: "更新できません"
+      redirect_to static_pages_index_path
     end
   end
 
@@ -45,16 +45,15 @@ class PostsController < ApplicationController
 
     if @post.user == current_user
       @post.destroy
-      redirect_to static_pages_index_path, notice: "投稿を削除しました"
-    else
-      redirect_to static_pages_index_path, alert: "削除できません"
     end
+
+    redirect_to static_pages_index_path
   end
 
   private
 
-  # ★ここが重要（ApplicationControllerは触らない）
+  # ★ テスト仕様に合わせる
   def require_login
-    redirect_to static_pages_login_path unless current_user
+    redirect_to static_pages_index_path unless current_user
   end
 end
