@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   resources :users, only: [ :create ]
   patch "users/update_password", to: "users#update_password", as: :update_password
 
+  resources :post_edits, only: [ :edit, :update ]
+
   # Posts & Replies
   resources :posts do
     resources :replies, only: :create
