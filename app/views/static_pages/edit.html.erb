@@ -93,7 +93,9 @@
   <div class="edit-card">
     <h2 class="edit-title">投稿編集</h2>
 
-    <%= form_with model: @post do |f| %>
+    <%= form_with model: @post,
+      url: post_edit_path(@post),
+      method: :patch do |f| %>
       <div class="form-group">
         <%= f.label :title, "タイトル" %>
         <%= f.text_field :title, class: "form-input" %>
